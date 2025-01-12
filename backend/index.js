@@ -1,0 +1,55 @@
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import connectDB from "./config/db.js";
+import userRoute from "./routes/userRoutes.js";
+import genreRoute from "./routes/genreRoute.js";
+import movieRoute from "./routes/movieRoute.js";
+import uploadRoutes from "./routes/uploadRoute.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import cors from "cors";
+
+// Setup __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Config
+dotenv.config();
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
+// Static Files
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+// Routes
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/genre", genreRoute);
+app.use("/api/v1/movies", movieRoute);
+app.use("/api/v1/upload", uploadRoutes);
+
+// Static Folder for Uploads
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+// Frontend Handling
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+// any request redirect index.html page
+app.use("*", (req, res) => {
+ res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+
+
+// Start Server
+const port = process.env.POST || 8000;
+app.listen(port, () => {
+    connectDB();
+    console.log(`Server running on http://localhost:${port}`);
+});
