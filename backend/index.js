@@ -47,6 +47,11 @@ app.use("*", (req, res) => {
 });
 
 
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
+  next();
+});
+
 // Start Server
 const port = process.env.POST || 8000;
 app.listen(port, () => {
