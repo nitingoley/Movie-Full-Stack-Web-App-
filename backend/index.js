@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://movie-full-stack-web-app.vercel.app/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
@@ -46,6 +46,11 @@ app.use("*", (req, res) => {
  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
+
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
+  next();
+});
 
 // Start Server
 const port = process.env.POST || 8000;
