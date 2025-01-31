@@ -43,19 +43,7 @@ app.use("/api/v1/payment", paymentRoute);
 // Static Folder for Uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-// Frontend Handling
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-// any request redirect index.html page
-app.use("*", (req, res) => {
- res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
-
-
-app.use((req, res, next) => {
-  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
-  next();
-});
+ 
 
 app.get("/health", (req , res)=>{
   res.send("Hello just for testing");
