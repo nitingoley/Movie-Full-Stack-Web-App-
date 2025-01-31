@@ -57,7 +57,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req , res)=>{
+app.get("/health", (req , res)=>{
   res.send("Hello just for testing");
 })
 
