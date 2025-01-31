@@ -50,6 +50,10 @@ app.get("/health", (req , res)=>{
 })
 
 
+app.get("/working" , (req , res)=>{
+  res.json({message: "WOrking"});
+})
+
 // Start Server
 const port = process.env.POST || 8000;
 app.listen(port, () => {
