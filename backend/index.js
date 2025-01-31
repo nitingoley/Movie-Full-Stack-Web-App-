@@ -57,6 +57,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req , res)=>{
+  res.send("Hello just for testing");
+})
+
+
 // Start Server
 const port = process.env.POST || 8000;
 app.listen(port, () => {
