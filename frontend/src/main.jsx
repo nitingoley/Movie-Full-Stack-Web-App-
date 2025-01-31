@@ -19,42 +19,10 @@ import { AllMovies } from "./pages/Movies/AllMovies.jsx";
 import { MovieDetails } from "./pages/Movies/MovieDetails.jsx";
 import { AllComments } from "./pages/Movies/AllComments.jsx";
 import { AdminDashboard } from "./pages/Admin/Dashboard/AdminDashboard.jsx";
-
-// Create routes
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />,
-//         index: true,  
-//       },
-//       {
-//         path: "/login",
-//         element: <Login />,
-//       },
-//       {
-//         path: "/register",
-//         element: <Signup />,
-//       },
-//       {
-//         path: "/profile",
-//         element: <Profie />,
-//       },
-//       // {
-//       //   path: "/profile",
-//       //   element: (
-//       //     <PrivateRoute>
-//       //       <Profie />
-//       //     </PrivateRoute>
-//       //   ),
-//       // },
-//     ],
-//   },
-// ]);
-
+import Subscription from "./pages/User/Subscription.jsx";
+import Success from "./components/Success.jsx";
+import Cancel from "./components/Cancel.jsx";
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -66,23 +34,35 @@ const router = createBrowserRouter([
         index: true,
       },
       {
-        path: "/movies",
+        path: "movies",
         element: <AllMovies />
       },
       {
-        path: "/movies/:id",
+        path: "movies/:id",
         element: <MovieDetails />
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Signup />,
       },
       {
-        path: "/profile",
+        path: "payment",
+        element: <Subscription />
+      },
+      {
+        path: "success",
+        element: <Success />
+      },
+      {
+        path: "cancel",
+        element: <Cancel />
+      },
+      {
+        path: "profile",
         element: <PrivateRoute />, 
         children: [
           {
@@ -124,6 +104,7 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 
 // Render the application
 createRoot(document.getElementById("root")).render(

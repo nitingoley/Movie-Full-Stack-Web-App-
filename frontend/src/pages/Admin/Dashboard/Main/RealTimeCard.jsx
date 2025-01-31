@@ -2,6 +2,7 @@ import React from 'react';
 import { useGetUsersQuery } from "../../../../redux/api/users";
 import { PrimaryCard } from './PrimaryCard';
 import { FaUsers } from "react-icons/fa";
+import {Link} from "react-router-dom";
 
 export const RealTimeCard = () => {
   const { data: visitor } = useGetUsersQuery();
@@ -31,10 +32,10 @@ export const RealTimeCard = () => {
 
       {/* Call to Action */}
       <div className="text-center my-4">
-        <button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full 
+        <Link to={"/payment"} className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full 
                            hover:opacity-90 transition-all">
           Subscribe Now
-        </button>
+        </Link>
       </div>
 
       {/* Horizontal Divider */}

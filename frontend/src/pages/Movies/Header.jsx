@@ -20,6 +20,10 @@ const {data} = useGetNewMovieQuery();
               Browse Movie
             </Link>
 
+            <Link to={"/payment"} className='transition duration-300 ease-in-out hover:bg-teal-200 block p-2 rounded mb-1 md:mb-2 text-lg'>
+               Subscribe
+            </Link>
+
         </nav>
 
         <div className='w-full md:w-[80%] mr-0 md:mr-2'>

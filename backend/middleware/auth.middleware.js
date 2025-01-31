@@ -2,38 +2,37 @@ import jwt from "jsonwebtoken";
 import User from "../model/User.js";
 import asyncHandler from "./asyncHandler.js";
 
-// check user auth or not 
-const authenticate = asyncHandler(async(req, res , next)=>{
+// Check if the user is authenticated
+const authenticate = asyncHandler(async (req, res, next) => {
     let token;
 
-
-    // read the jwt from jwt cookie /
-
+    // Read the jwt from the cookie
     token = req.cookies.jwt;
     
-    if(token) {
+    if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = await User.findById(decoded.userId).select("-password");
+            console.log("User authenticated:", req.user);  
             next();
         } catch (error) {
-            res.status(401)
-            throw new Error("Unauthorized access !")
+            console.error("Error during token verification:", error.message);
+            res.status(401).json({ error: "Unauthorized access! Invalid or expired token." });
         }
-    }else {
-        res.status(401)
-        throw new Error("Unauthorized access !")
+    } else {
+        console.error("No token found in cookies");
+        res.status(401).json({ error: "Unauthorized access! Token not found." });
     }
-})
+});
 
-// check admin or not 
-const isAdminCheck = (req , res , next)=>{
-    if(req.user && req.user.isAdmin) {
+// Check if the user is an admin
+const isAdminCheck = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
         next();
-    }else {
-        res.status(401)
-        throw new Error("Unauthorized user not an admin")
+    } else {
+        console.error("User is not an admin:", req.user ? req.user : "No user found");
+        res.status(403).json({ error: "Unauthorized access! User is not an admin." });
     }
-}
+};
 
-export {authenticate , isAdminCheck};
+export { authenticate, isAdminCheck };

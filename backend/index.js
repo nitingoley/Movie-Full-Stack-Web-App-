@@ -6,6 +6,7 @@ import userRoute from "./routes/userRoutes.js";
 import genreRoute from "./routes/genreRoute.js";
 import movieRoute from "./routes/movieRoute.js";
 import uploadRoutes from "./routes/uploadRoute.js";
+import paymentRoute from   "./routes/payment.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
@@ -20,11 +21,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({
-    origin: "https://movie-full-stack-web-app.vercel.app/",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-}));
+
+
+const corsOptions = {
+  origin: 'http://localhost:5173', 
+  credentials: true,  
+};
+
+app.use(cors(corsOptions));
 
 // Static Files
 app.use(express.static(path.join(__dirname, "../frontend/build")));
@@ -34,6 +38,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/genre", genreRoute);
 app.use("/api/v1/movies", movieRoute);
 app.use("/api/v1/upload", uploadRoutes);
+app.use("/api/v1/payment", paymentRoute);
 
 // Static Folder for Uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
