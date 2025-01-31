@@ -6,7 +6,7 @@ import userRoute from "./routes/userRoutes.js";
 import genreRoute from "./routes/genreRoute.js";
 import movieRoute from "./routes/movieRoute.js";
 import uploadRoutes from "./routes/uploadRoute.js";
-import paymentRoute from   "./routes/payment.js";
+import paymentRoute from "./routes/payment.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
@@ -22,10 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 const corsOptions = {
-  origin: 'http://localhost:5173', 
-  credentials: true,  
+  origin: "https://movie-full-stack-web-app-tud2.vercel.app",
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -43,20 +42,17 @@ app.use("/api/v1/payment", paymentRoute);
 // Static Folder for Uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
- 
-
-app.get("/health", (req , res)=>{
+app.get("/health", (req, res) => {
   res.send("Hello just for testing");
-})
+});
 
-
-app.get("/working" , (req , res)=>{
-  res.json({message: "WOrking"});
-})
+app.get("/working", (req, res) => {
+  res.json({ message: "WOrking" });
+});
 
 // Start Server
 const port = process.env.POST || 8000;
 app.listen(port, () => {
-    connectDB();
-    console.log(`Server running on http://localhost:${port}`);
+  connectDB();
+  console.log(`Server running on http://localhost:${port}`);
 });
