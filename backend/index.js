@@ -25,6 +25,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: "https://movie-full-stack-web-app-tud2.vercel.app",
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
 app.use(cors(corsOptions));
