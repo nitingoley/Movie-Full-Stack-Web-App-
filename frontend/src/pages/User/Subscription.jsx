@@ -12,7 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(
   "pk_test_51PSEXn06AQVECNmWRdEcjGQlQrNJAl3rYoZgY4masULx8v8gusoShdagWO81UEmDEJ0oDh2vEUh1VY2BGSi35jUE00sw3eyFEE"
 );
-const url = "http://localhost:3000";
+const url = "https://movie-full-stack-backend.onrender.com";
 
 export default function Subscription() {
   const [subscriptionStatus, setSubscriptionStatus] = useState(null);
@@ -65,7 +65,7 @@ export default function Subscription() {
     const fetchSubscriptionData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/v1/payment/subscription-status-dummy",
+          "https://movie-full-stack-backend.onrender.com/api/v1/payment/subscription-status-dummy",
           {
             method: "GET",
             credentials: "include", // ✅ Ensures JWT cookie is sent

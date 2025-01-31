@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api/": "https://movie-full-stack-web-app-2.onrender.com",
-      "/uploads": "https://movie-full-stack-web-app-2.onrender.com",
+      "/api/": "https://movie-full-stack-backend.onrender.com",
+      "/uploads": "https://movie-full-stack-backend.onrender.com",
     },
   },
 });
