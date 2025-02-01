@@ -52,7 +52,7 @@ app.get("/working", (req, res) => {
 });
 
 // Start Server
-const port = process.env.POST || 8000;
+const port = 3000;
 app.listen(port, () => {
   connectDB();
   console.log(`Server running on http://localhost:${port}`);
