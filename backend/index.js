@@ -11,7 +11,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
 
-// Setup __dirname
+// Setup __dirname for ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -22,15 +22,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// CORS Configuration
 const corsOptions = {
-  origin: "https://movie-full-stack-web-app-tud2.vercel.app",
+  origin: "http://localhost:5173",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
 app.use(cors(corsOptions));
 
-// Static Files
+// Serve Static Files (Frontend Build in Production)
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 // Routes
@@ -43,13 +44,14 @@ app.use("/api/v1/payment", paymentRoute);
 // Static Folder for Uploads
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.get("/health", (req, res) => {
-  res.send("Hello just for testing");
-});
-
-app.get("/working", (req, res) => {
-  res.json({ message: "WOrking" });
-});
+// Handling production build of frontend
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 // Start Server
 const port = process.env.PORT || 6000;
