@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://moviefx.vercel.app",
+  origin: "https://movie-ui-teal.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
