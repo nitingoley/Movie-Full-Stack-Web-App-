@@ -23,8 +23,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // CORS Configuration
+const allowedOrigins = [
+  "https://movie-ui-teal.vercel.app",
+  "https://moviefx.vercel.app"
+];
+
 const corsOptions = {
-  origin: "https://movie-ui-teal.vercel.app",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
